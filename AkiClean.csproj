@@ -15,19 +15,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="ac.ico">
+    <Resource Include="Icons\ac.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="CleanIcon.png">
+    <Resource Include="Icons\CleanIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="HistoryIcon.png">
+    <Resource Include="Icons\HistoryIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="SearchIcon.png">
+    <Resource Include="Icons\SearchIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="UpdateIcon.png">
+    <Resource Include="Icons\UpdateIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

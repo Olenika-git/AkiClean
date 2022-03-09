@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,8 +23,36 @@ namespace AkiClean
     {
         public MainWindow()
         {
-            //   To do add a new system when user click on the button it will display a new window with data like name email ....
             InitializeComponent();
         }
+
+        //  Event on Button
+        private void Button_Update_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Logiciel à jour !", "Mise à jour . . .",MessageBoxButton.OK,MessageBoxImage.Information);
+
+        }
+
+        private void Button_History_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Historique à crée !", "Historique", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void Button_Web_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo("www.google.com")
+                {
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception error)
+            {
+
+                Console.WriteLine("Erreur : " +error.Message);
+            }
+        }
+        //---------------------------------------------------
     }
 }

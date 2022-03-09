@@ -1,3 +1,7 @@
 /.vs
 /obj
 /debug
+/bin
+.vs
+.vs/AkiClean/v16/.suo
+*.v2

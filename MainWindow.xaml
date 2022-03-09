@@ -60,11 +60,11 @@
         </Button>
         <!--Footer-->
         <Rectangle HorizontalAlignment="Center" Height="108" Stroke="Black" VerticalAlignment="Top" Width="1000" Fill="#FF2D3A6C" StrokeThickness="0" Margin="0,576,0,0"/>
-        <Label x:Name="copyright" Content="Copyright 2022 - Akinelo" HorizontalAlignment="Center" Margin="0,576,0,0" VerticalAlignment="Top" Foreground="#FFF7F7F7" FontFamily="Matura MT Script Capitals" FontSize="20" FontWeight="Normal" Height="108" Width="1000" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label x:Name="copyright" Content="2022 - Akinelo" HorizontalAlignment="Center" Margin="0,576,0,0" VerticalAlignment="Top" Foreground="#FFF7F7F7" FontFamily="Matura MT Script Capitals" FontSize="20" FontWeight="Normal" Height="108" Width="1000" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         <!-- Message à l'utilisateur (update ou autre)-->
         <Rectangle HorizontalAlignment="Center" Height="57" Stroke="Black" VerticalAlignment="Top" Width="1000" Fill="#FFDD2C0E" StrokeThickness="0" Margin="0,617,0,0" Visibility="Hidden"/>
         <Label x:Name="message" Content="Copyright 2022 - Akinelo" HorizontalAlignment="Center" Margin="0,617,0,0" VerticalAlignment="Top" Foreground="#FFF7F7F7" FontFamily="Matura MT Script Capitals" FontSize="20" FontWeight="Normal" Height="67" Width="1000" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="Hidden"/>
-        <Button Content="&#x9;Mise à Jour" HorizontalAlignment="Left" Margin="105,404,0,0" VerticalAlignment="Top" Height="153" Width="336" BorderThickness="0,0,0,0" RenderTransformOrigin="0.5,0.5" Foreground="#FFFDFDFD" FontFamily="Matura MT Script Capitals" FontSize="18" FontWeight="Normal">
+        <Button Content="&#x9;Mise à Jour" HorizontalAlignment="Left" Margin="105,404,0,0" VerticalAlignment="Top" Height="153" Width="336" BorderThickness="0,0,0,0" RenderTransformOrigin="0.5,0.5" Foreground="#FFFDFDFD" FontFamily="Matura MT Script Capitals" FontSize="18" FontWeight="Normal" Click="Button_Update_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF8E9FDC"/>
@@ -80,7 +80,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button Content="&#x9;Historique" HorizontalAlignment="Left" Margin="533,225,0,0" VerticalAlignment="Top" Height="157" Width="336" BorderThickness="0,0,0,0" RenderTransformOrigin="0.5,0.5" Foreground="#FFFDFDFD" FontFamily="Matura MT Script Capitals" FontSize="18" FontWeight="Normal">
+        <Button Content="&#x9;Historique" HorizontalAlignment="Left" Margin="533,225,0,0" VerticalAlignment="Top" Height="157" Width="336" BorderThickness="0,0,0,0" RenderTransformOrigin="0.5,0.5" Foreground="#FFFDFDFD" FontFamily="Matura MT Script Capitals" FontSize="18" FontWeight="Normal" Click="Button_History_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF8E9FDC"/>
@@ -96,7 +96,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button Content="&#x9;Analyser" HorizontalAlignment="Left" Margin="533,404,0,0" VerticalAlignment="Top" Height="153" Width="336" BorderThickness="0,0,0,0" RenderTransformOrigin="0.5,0.5" Foreground="#FFFDFDFD" FontFamily="Matura MT Script Capitals" FontSize="18" FontWeight="Normal">
+        <Button Content="&#x9;Site WEB ???" HorizontalAlignment="Left" Margin="533,404,0,0" VerticalAlignment="Top" Height="153" Width="336" BorderThickness="0,0,0,0" RenderTransformOrigin="0.5,0.5" Foreground="#FFFDFDFD" FontFamily="Matura MT Script Capitals" FontSize="18" FontWeight="Normal" Click="Button_Web_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF8E9FDC"/>
@@ -112,9 +112,9 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Image Margin="100,411,750,134" Source="/Icons/UpdateIcon.png"/>
-        <Image Height="100" Width="100" Margin="125,254,775,330" Source="/Icons/CleanIcon.png"/>
-        <Image Height="100" Width="100" Margin="563,431,337,153" Source="/Icons/SearchIcon.png"/>
-        <Image Height="100" Width="100" Margin="563,254,337,330" Source="/Icons/HistoryIcon.png"/>
+        <Image Margin="100,411,750,134" Source="/Icons/UpdateIcon.png" IsHitTestVisible="False"/>
+        <Image Height="100" Width="100" Margin="125,254,775,330" Source="/Icons/CleanIcon.png" IsHitTestVisible="False"/>
+        <Image Height="100" Width="100" Margin="563,431,337,153" Source="/Icons/SearchIcon.png" IsHitTestVisible="False"/>
+        <Image Height="100" Width="100" Margin="563,254,337,330" Source="/Icons/HistoryIcon.png" IsHitTestVisible="False"/>
     </Grid>
 </Window>
