@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AkiClean"
         mc:Ignorable="d"
         x:Name="FenetrePrincipale"
-        Title="AkiClean" FontFamily="Matura MT Script Capitals" Height="700" Width="1000" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Icon="/ac.ico">
+        Title="AkiClean" FontFamily="Matura MT Script Capitals" Height="700" Width="1000" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Icon="/Icons/ac.ico">
     <Grid>
         <Rectangle HorizontalAlignment="Center" Height="205" Stroke="Black" VerticalAlignment="Top" Width="1000" Fill="#FF2D3A6C" StrokeThickness="0"/>
         <Rectangle HorizontalAlignment="Center" Height="31" Stroke="Black" VerticalAlignment="Top" Width="1000" Margin="0,174,0,0" StrokeThickness="0">
@@ -112,9 +112,9 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Image Margin="100,411,750,134" Source="/UpdateIcon.png"/>
-        <Image Height="100" Width="100" Margin="125,254,775,330" Source="/CleanIcon.png"/>
-        <Image Height="100" Width="100" Margin="563,431,337,153" Source="/SearchIcon.png"/>
-        <Image Height="100" Width="100" Margin="563,254,337,330" Source="/HistoryIcon.png"/>
+        <Image Margin="100,411,750,134" Source="/Icons/UpdateIcon.png"/>
+        <Image Height="100" Width="100" Margin="125,254,775,330" Source="/Icons/CleanIcon.png"/>
+        <Image Height="100" Width="100" Margin="563,431,337,153" Source="/Icons/SearchIcon.png"/>
+        <Image Height="100" Width="100" Margin="563,254,337,330" Source="/Icons/HistoryIcon.png"/>
     </Grid>
 </Window>
