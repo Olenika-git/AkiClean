@@ -4,4 +4,5 @@
 /bin
 .vs
 .vs/AkiClean/v16/.suo
-*.v2
+/.vs/
+
