@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,9 +22,53 @@ namespace AkiClean
     /// </summary>
     public partial class MainWindow : Window
     {
+        public DirectoryInfo tempWin;
+        public DirectoryInfo tempApp;
         public MainWindow()
         {
             InitializeComponent();
+            tempWin = new DirectoryInfo(@"C:\Windows\Temp");
+            tempApp = new DirectoryInfo(System.IO.Path.GetTempPath());
+        }
+
+        // Function to get the weight of a folder
+        public long DirectorySize(DirectoryInfo directory)
+        {
+            return directory.GetFiles().Sum(files => files.Length) + directory.GetDirectories().Sum(dir => DirectorySize(dir));
+        }
+
+        //  Function to delete every files in a choosen Directory
+        public void DeleteTempData(DirectoryInfo directory)
+        {
+            //  Loop to remove each files in the directory
+            foreach (FileInfo file in directory.GetFiles())
+            {
+                try
+                {
+                    file.Delete();
+                    Console.WriteLine(file.FullName);
+                    //totalFilesRemoved++;
+                }
+                catch(Exception error)
+                {
+                    Console.WriteLine("Error : " + error);
+                    continue;
+                }
+            }
+            //  Loop to remove each directory in the directory
+            foreach (DirectoryInfo dir in directory.GetDirectories())
+            {
+                try
+                {
+                    dir.Delete(true);
+                    Console.WriteLine(dir.FullName);
+                }
+                catch (Exception error)
+                {
+                    Console.WriteLine("Error : "+error);
+                   continue;
+                }
+            }
         }
 
         //  Event on Button
@@ -53,6 +98,31 @@ namespace AkiClean
                 Console.WriteLine("Erreur : " +error.Message);
             }
         }
+
+        private void Button_Analyze_Click(object sender, RoutedEventArgs e)
+        {
+            AnalyzeFolders();
+        }
         //---------------------------------------------------
+
+        //  Function to analyze Folders Weight and date for last Analyze
+        public void AnalyzeFolders()
+        {
+            Console.WriteLine("Début de l'analyse ...");
+            long totalSize = 0;
+
+            try
+            {
+                totalSize = (DirectorySize(tempWin) / 1000000) + (DirectorySize(tempApp) / 1000000);
+            }
+            catch (Exception error)
+            {
+
+                Console.WriteLine("Error : Folder Analyze Denied " + error.Message);
+            }
+            
+            espace.Content = totalSize + " Mb";
+            date.Content = DateTime.Now;
+        }
     }
 }

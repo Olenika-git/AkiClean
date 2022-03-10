@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AkiClean"
+        xml:lang="fr-FR"
         mc:Ignorable="d"
         x:Name="FenetrePrincipale"
         Title="AkiClean" FontFamily="Matura MT Script Capitals" Height="700" Width="1000" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Icon="/Icons/ac.ico">
@@ -25,7 +26,7 @@
         <!--Valeurs-->
         <Label x:Name="date" Content="???" HorizontalAlignment="Left" Margin="283,155,0,0" VerticalAlignment="Top" Foreground="#FFF7F7F7" FontFamily="Matura MT Script Capitals" FontSize="20" FontWeight="Normal" Height="37"/>
         <Label x:Name="espace" Content="??? Mb" HorizontalAlignment="Left" Margin="282,118,0,0" VerticalAlignment="Top" Foreground="#FFF7F7F7" FontFamily="Matura MT Script Capitals" FontSize="20" FontWeight="Normal" Height="37"/>
-        <Button Content="Analyser" HorizontalAlignment="Left" Margin="680,94,0,0" VerticalAlignment="Top" Height="57" Width="250" BorderThickness="0,0,0,0" RenderTransformOrigin="0.5,0.5" Foreground="#FFFDFDFD" FontFamily="Matura MT Script Capitals" FontSize="18" FontWeight="Normal">
+        <Button Content="Analyser" HorizontalAlignment="Left" Margin="680,94,0,0" VerticalAlignment="Top" Height="57" Width="250" BorderThickness="0,0,0,0" RenderTransformOrigin="0.5,0.5" Foreground="#FFFDFDFD" FontFamily="Matura MT Script Capitals" FontSize="18" FontWeight="Normal" Click="Button_Analyze_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF8E9FDC"/>
