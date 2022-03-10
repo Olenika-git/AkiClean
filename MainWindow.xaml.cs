@@ -24,11 +24,15 @@ namespace AkiClean
     {
         public DirectoryInfo tempWin;
         public DirectoryInfo tempApp;
+        public DirectoryInfo tempUsrApp;
+        public string username = Environment.UserName;
+        
         public MainWindow()
         {
             InitializeComponent();
             tempWin = new DirectoryInfo(@"C:\Windows\Temp");
             tempApp = new DirectoryInfo(System.IO.Path.GetTempPath());
+            tempUsrApp = new DirectoryInfo(@"C:\Users\"+username+@"\AppData\Local\Temp");
         }
 
         // Function to get the weight of a folder
@@ -38,7 +42,7 @@ namespace AkiClean
         }
 
         //  Function to delete every files in a choosen Directory
-        public void DeleteTempData(DirectoryInfo directory)
+        public static void DeleteTempData(DirectoryInfo directory)
         {
             //  Loop to remove each files in the directory
             foreach (FileInfo file in directory.GetFiles())
@@ -113,7 +117,7 @@ namespace AkiClean
 
             try
             {
-                totalSize = (DirectorySize(tempWin) / 1000000) + (DirectorySize(tempApp) / 1000000);
+                totalSize = (DirectorySize(tempWin) / 1000000) + (DirectorySize(tempApp) / 1000000) + (DirectorySize(tempUsrApp) / 1000000);
             }
             catch (Exception error)
             {
