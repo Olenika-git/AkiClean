@@ -25,14 +25,21 @@ namespace AkiClean
         public DirectoryInfo tempWin;
         public DirectoryInfo tempApp;
         public DirectoryInfo tempUsrApp;
+        public DirectoryInfo tempFirefox;
+        public DirectoryInfo tempGoogle;
         public string username = Environment.UserName;
         
         public MainWindow()
         {
             InitializeComponent();
+            //  Temp Windows Folders
             tempWin = new DirectoryInfo(@"C:\Windows\Temp");
             tempApp = new DirectoryInfo(System.IO.Path.GetTempPath());
             tempUsrApp = new DirectoryInfo(@"C:\Users\"+username+@"\AppData\Local\Temp");
+
+            //  Internet Nagivator Folders
+            tempFirefox = new DirectoryInfo(@"C:\Users\" + username + @"\AppData\Roaming\Mozilla\Firefox\Profiles");
+            tempGoogle = new DirectoryInfo(@"C:\Users\" + username + @"\AppData\Local\Google\Chrome\User Data\Default");
         }
 
         // Function to get the weight of a folder
