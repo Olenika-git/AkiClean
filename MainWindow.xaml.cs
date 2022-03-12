@@ -22,16 +22,28 @@ namespace AkiClean
     /// </summary>
     public partial class MainWindow : Window
     {
+        //  Declaration Username Variable
+        public string username = Environment.UserName;
+
+        //  Declaration Temp Windows Folders Variable
         public DirectoryInfo tempWin;
         public DirectoryInfo tempApp;
         public DirectoryInfo tempUsrApp;
+
+        //  Declaration Temp Internet Navigator Variable
         public DirectoryInfo tempFirefox;
         public DirectoryInfo tempGoogle;
-        public string username = Environment.UserName;
-        
+        public DirectoryInfo tempEdge;
+        public DirectoryInfo tempIE1;
+        public DirectoryInfo tempIE2;
+        public DirectoryInfo tempSafariHistory;
+        public DirectoryInfo tempSafariCache;
+        public DirectoryInfo tempSafariCookies;
+
         public MainWindow()
         {
             InitializeComponent();
+
             //  Temp Windows Folders
             tempWin = new DirectoryInfo(@"C:\Windows\Temp");
             tempApp = new DirectoryInfo(System.IO.Path.GetTempPath());
@@ -40,6 +52,12 @@ namespace AkiClean
             //  Internet Nagivator Folders
             tempFirefox = new DirectoryInfo(@"C:\Users\" + username + @"\AppData\Roaming\Mozilla\Firefox\Profiles");
             tempGoogle = new DirectoryInfo(@"C:\Users\" + username + @"\AppData\Local\Google\Chrome\User Data\Default");
+            tempEdge = new DirectoryInfo(@"C:\Users\" + username + @"\AppData\Local\Microsoft\Edge");
+            tempIE1 = new DirectoryInfo(@"C:\Users\" + username + @"\AppData\Local\Microsoft\Windows\WebCache");
+            tempIE2 = new DirectoryInfo(@"C:\Users\" + username + @"\AppData\Local\Microsoft\Internet Explorer\Recovery");
+            tempSafariHistory = new DirectoryInfo(@"C:\Users\" + username + @"\AppData\Roaming\Apple Computer\Safari\");
+            tempSafariCache = new DirectoryInfo(@"C:\Users\" + username + @"\AppData\Local\Apple Computer\Safari\");
+            tempSafariCookies = new DirectoryInfo(@"C:\Users\" + username + @"\AppData\Roaming\Apple Computer\Safari\Cookies\");
         }
 
         // Function to get the weight of a folder
