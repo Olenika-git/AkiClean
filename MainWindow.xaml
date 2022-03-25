@@ -9,6 +9,7 @@
         x:Name="FenetrePrincipale"
         Title="AkiClean" FontFamily="Matura MT Script Capitals" Height="700" Width="1000" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Icon="/Icons/ac.ico">
     <Grid>
+        <!--Banner Top-->
         <Rectangle HorizontalAlignment="Center" Height="205" Stroke="Black" VerticalAlignment="Top" Width="1000" Fill="#FF2D3A6C" StrokeThickness="0" Panel.ZIndex="-1"/>
         <Rectangle HorizontalAlignment="Center" Height="31" Stroke="Black" VerticalAlignment="Top" Width="1000" Margin="0,174,0,0" StrokeThickness="0">
             <Rectangle.Fill>
@@ -18,14 +19,19 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <!--Titre-->
+        
+        <!--Title-->
         <Label x:Name="titre" Content="Analyse Nécessaire" HorizontalAlignment="Left" Margin="51,10,0,0" VerticalAlignment="Top" Foreground="#FFF7F7F7" FontFamily="Matura MT Script Capitals" FontSize="48" FontWeight="Bold" Height="64" RenderTransformOrigin="0.499,0.03"/>
-        <!--Sous Titre-->
-        <Label Content="Espace à nettoyer : " HorizontalAlignment="Left" Margin="61,115,0,0" VerticalAlignment="Top" Foreground="#FFF7F7F7" FontFamily="Matura MT Script Capitals" FontSize="24" FontWeight="Bold" Height="52"/>
+        
+        <!--Subtitle-->
+        <Label x:Name="label1" Content="Espace à nettoyer : " HorizontalAlignment="Left" Margin="61,115,0,0" VerticalAlignment="Top" Foreground="#FFF7F7F7" FontFamily="Matura MT Script Capitals" FontSize="24" FontWeight="Bold" Height="52"/>
         <Label Content="Dernière Analyse : " HorizontalAlignment="Left" Margin="41,152,0,0" VerticalAlignment="Top" Foreground="#FFF7F7F7" FontFamily="Matura MT Script Capitals" FontSize="24" FontWeight="Bold" Height="37"/>
-        <!--Valeurs-->
+        
+        <!--Title Data-->
         <Label x:Name="date" Content="???" HorizontalAlignment="Left" Margin="283,155,0,0" VerticalAlignment="Top" Foreground="#FFF7F7F7" FontFamily="Matura MT Script Capitals" FontSize="20" FontWeight="Normal" Height="37"/>
         <Label x:Name="espace" Content="??? Mb" HorizontalAlignment="Left" Margin="282,118,0,0" VerticalAlignment="Top" Foreground="#FFF7F7F7" FontFamily="Matura MT Script Capitals" FontSize="20" FontWeight="Normal" Height="37"/>
+        
+        <!--ButtonAnalyze-->
         <Button Content="&#160;&#160;&#160;Analyser" HorizontalAlignment="Left" Margin="680,94,0,0" VerticalAlignment="Top" Height="57" Width="250" BorderThickness="0,0,0,0" RenderTransformOrigin="0.5,0.5" Foreground="#FFFDFDFD" FontFamily="Matura MT Script Capitals" FontSize="30" FontWeight="Normal" Click="Button_Analyze_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -42,8 +48,9 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <!-- Content -->
-        <Button Content="&#x9;Nettoyer&#x0a;&#x9;Fichier" HorizontalAlignment="Left" Margin="105,227,0,0" VerticalAlignment="Top" Height="157" Width="336" BorderThickness="0,0,0,0" RenderTransformOrigin="0.5,0.5" Foreground="#FFFDFDFD" FontFamily="Matura MT Script Capitals" FontSize="30" FontWeight="Normal">
+        
+        <!-- Button Clean Folders -->
+        <Button x:Name="btnCleanFolders" Content="&#x9;Nettoyer&#x0a;&#x9;Fichiers&#x0a;&#x9;Temporaire" HorizontalAlignment="Left" Margin="105,227,0,0" VerticalAlignment="Top" Height="157" Width="336" BorderThickness="0,0,0,0" RenderTransformOrigin="0.5,0.5" Foreground="#FFFDFDFD" FontFamily="Matura MT Script Capitals" FontSize="30" FontWeight="Normal" Click="Button_DeleteFolders_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF8E9FDC"/>
@@ -59,12 +66,8 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <!--Footer-->
-        <Rectangle HorizontalAlignment="Center" Height="108" Stroke="Black" VerticalAlignment="Top" Width="1000" Fill="#FF2D3A6C" StrokeThickness="0" Margin="0,576,0,0"/>
-        <Label x:Name="copyright" Content="2022 - Akinelo" HorizontalAlignment="Center" Margin="0,576,0,0" VerticalAlignment="Top" Foreground="#FFF7F7F7" FontFamily="Matura MT Script Capitals" FontSize="20" FontWeight="Normal" Height="108" Width="1000" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Panel.ZIndex="-1"/>
-        <!-- Message à l'utilisateur (update ou autre)-->
-        <Rectangle HorizontalAlignment="Center" Height="57" Stroke="Black" VerticalAlignment="Top" Width="1000" Fill="#FFDD2C0E" StrokeThickness="0" Margin="0,617,0,0" Visibility="Hidden"/>
-        <Label x:Name="message" Content="Copyright 2022 - Akinelo" HorizontalAlignment="Center" Margin="0,617,0,0" VerticalAlignment="Top" Foreground="#FFF7F7F7" FontFamily="Matura MT Script Capitals" FontSize="20" FontWeight="Normal" Height="67" Width="1000" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="Hidden"/>
+
+        <!--Button Update-->
         <Button Content="&#x9;Mise à Jour" HorizontalAlignment="Left" Margin="105,404,0,0" VerticalAlignment="Top" Height="153" Width="336" BorderThickness="0,0,0,0" RenderTransformOrigin="0.5,0.5" Foreground="#FFFDFDFD" FontFamily="Matura MT Script Capitals" FontSize="30" FontWeight="Normal" Click="Button_Update_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -81,6 +84,8 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
+
+        <!--Button History-->
         <Button Content="&#x9;Historique" HorizontalAlignment="Left" Margin="562,404,0,0" VerticalAlignment="Top" Height="157" Width="336" BorderThickness="0,0,0,0" RenderTransformOrigin="0.5,0.5" Foreground="#FFFDFDFD" FontFamily="Matura MT Script Capitals" FontSize="30" FontWeight="Normal" Click="Button_History_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -97,7 +102,9 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button Content="&#x9;Nettoyer&#x0a;&#x9;Internet" HorizontalAlignment="Left" Margin="562,227,0,0" VerticalAlignment="Top" Height="153" Width="336" BorderThickness="0,0,0,0" RenderTransformOrigin="0.5,0.5" Foreground="#FFFDFDFD" FontFamily="Matura MT Script Capitals" FontSize="30" FontWeight="Normal" Click="Button_Web_Click">
+
+        <!--Button Clean Internet-->
+        <Button Content="&#x9;Nettoyer&#x0a;&#x9;Fichiers&#x0a;&#x9;Internet" HorizontalAlignment="Left" Margin="562,227,0,0" VerticalAlignment="Top" Height="153" Width="336" BorderThickness="0,0,0,0" RenderTransformOrigin="0.5,0.5" Foreground="#FFFDFDFD" FontFamily="Matura MT Script Capitals" FontSize="30" FontWeight="Normal" Click="Button_DeleteWeb_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF8E9FDC"/>
@@ -113,12 +120,22 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
+
+        <!--Banner Bottom-->
+        <Rectangle HorizontalAlignment="Center" Height="108" Stroke="Black" VerticalAlignment="Top" Width="1000" Fill="#FF2D3A6C" StrokeThickness="0" Margin="0,576,0,0"/>
+        <Label x:Name="copyright" Content="2022 - Akinelo" HorizontalAlignment="Center" Margin="0,576,0,0" VerticalAlignment="Top" Foreground="#FFF7F7F7" FontFamily="Matura MT Script Capitals" FontSize="20" FontWeight="Normal" Height="108" Width="1000" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        
+        <!-- Message à l'utilisateur (update ou autre)-->
+        <Rectangle HorizontalAlignment="Center" Height="57" Stroke="Black" VerticalAlignment="Top" Width="1000" Fill="#FFDD2C0E" StrokeThickness="0" Margin="0,617,0,0" Visibility="Hidden"/>
+        <Label x:Name="message" Content="Copyright 2022 - Akinelo" HorizontalAlignment="Center" Margin="0,617,0,0" VerticalAlignment="Top" Foreground="#FFF7F7F7" FontFamily="Matura MT Script Capitals" FontSize="20" FontWeight="Normal" Height="67" Width="1000" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="Hidden"/>
+
+        <!--Images-->
         <Canvas>
-        <Image Height="100" Width="100" Margin="124,430,760,153" Source="/Icons/UpdateIcon.png" IsHitTestVisible="False"/>
-        <Image Height="100" Width="100" Margin="133,254,767,330" Source="/Icons/CleanIcon.png" IsHitTestVisible="False"/>
-        <Image Height="100" Width="100" Margin="592,254,308,330" Source="/Icons/CleanIcon.png" IsHitTestVisible="False"/>
+            <Image Height="100" Width="100" Margin="124,430,760,153" Source="/Icons/UpdateIcon.png" IsHitTestVisible="False"/>
+            <Image Name="imgCleanFolders" Height="100" Width="100" Margin="133,254,767,330" Source="/Icons/CleanIcon.png" IsHitTestVisible="False"/>
+            <Image Height="100" Width="100" Margin="592,254,308,330" Source="/Icons/CleanIcon.png" IsHitTestVisible="False"/>
             <Image Height="50" Width="80" Margin="674,100,234,539" Source="/Icons/SearchIcon.png" IsHitTestVisible="False"/>
-        <Image Height="100" Width="100" Margin="592,432,308,152" Source="/Icons/HistoryIcon.png" IsHitTestVisible="False"/>
+            <Image Height="100" Width="100" Margin="592,432,308,152" Source="/Icons/HistoryIcon.png" IsHitTestVisible="False"/>
         </Canvas>
     </Grid>
 </Window>

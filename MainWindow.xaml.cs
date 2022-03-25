@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,15 +23,21 @@ namespace AkiClean
     /// </summary>
     public partial class MainWindow : Window
     {
-        //  Declaration Username Variable
+        //---------------------------------------------------
+        //             Declaration Username Variable        |
+        //---------------------------------------------------
         public string username = Environment.UserName;
 
-        //  Declaration Temp Windows Folders Variable
+        //---------------------------------------------------
+        //     Declaration Temp Windows Folders Variable    |
+        //---------------------------------------------------
         public DirectoryInfo tempWin;
         public DirectoryInfo tempApp;
         public DirectoryInfo tempUsrApp;
 
-        //  Declaration Temp Internet Navigator Variable
+        //---------------------------------------------------
+        //         Declaration Temp Internet Variable       |
+        //---------------------------------------------------
         public DirectoryInfo tempFirefox;
         public DirectoryInfo tempGoogle;
         public DirectoryInfo tempEdge;
@@ -44,12 +51,16 @@ namespace AkiClean
         {
             InitializeComponent();
 
-            //  Temp Windows Folders
+            //---------------------------------------------------
+            //               Windows Folders Property           |
+            //---------------------------------------------------
             tempWin = new DirectoryInfo(@"C:\Windows\Temp");
             tempApp = new DirectoryInfo(System.IO.Path.GetTempPath());
             tempUsrApp = new DirectoryInfo(@"C:\Users\"+username+@"\AppData\Local\Temp");
 
-            //  Internet Nagivator Folders
+            //---------------------------------------------------
+            //               Internet Folders Property          |
+            //---------------------------------------------------
             tempFirefox = new DirectoryInfo(@"C:\Users\" + username + @"\AppData\Roaming\Mozilla\Firefox\Profiles");
             tempGoogle = new DirectoryInfo(@"C:\Users\" + username + @"\AppData\Local\Google\Chrome\User Data\Default");
             tempEdge = new DirectoryInfo(@"C:\Users\" + username + @"\AppData\Local\Microsoft\Edge");
@@ -60,59 +71,29 @@ namespace AkiClean
             tempSafariCookies = new DirectoryInfo(@"C:\Users\" + username + @"\AppData\Roaming\Apple Computer\Safari\Cookies\");
         }
 
-        // Function to get the weight of a folder
-        public long DirectorySize(DirectoryInfo directory)
-        {
-            return directory.GetFiles().Sum(files => files.Length) + directory.GetDirectories().Sum(dir => DirectorySize(dir));
-        }
+        
 
-        //  Function to delete every files in a choosen Directory
-        public static void DeleteTempData(DirectoryInfo directory)
-        {
-            //  Loop to remove each files in the directory
-            foreach (FileInfo file in directory.GetFiles())
-            {
-                try
-                {
-                    file.Delete();
-                    Console.WriteLine(file.FullName);
-                    //totalFilesRemoved++;
-                }
-                catch(Exception error)
-                {
-                    Console.WriteLine("Error : " + error);
-                    continue;
-                }
-            }
-            //  Loop to remove each directory in the directory
-            foreach (DirectoryInfo dir in directory.GetDirectories())
-            {
-                try
-                {
-                    dir.Delete(true);
-                    Console.WriteLine(dir.FullName);
-                }
-                catch (Exception error)
-                {
-                    Console.WriteLine("Error : "+error);
-                   continue;
-                }
-            }
-        }
+        //---------------------------------------------------
+        //                   Event on Buttons               |
+        //---------------------------------------------------
 
-        //  Event on Button
+        //  Update Button
         private void Button_Update_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Logiciel à jour !", "Mise à jour . . .",MessageBoxButton.OK,MessageBoxImage.Information);
 
         }
 
+        //  History Button
         private void Button_History_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Historique à crée !", "Historique", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private void Button_Web_Click(object sender, RoutedEventArgs e)
+
+        
+        //  DeleteWebFiles Button
+        private void Button_DeleteWeb_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -128,13 +109,42 @@ namespace AkiClean
             }
         }
 
+        //  Analyze Button
         private void Button_Analyze_Click(object sender, RoutedEventArgs e)
         {
             AnalyzeFolders();
+            titre.Content = "Analyse Effectué";
+        }
+
+        //  DeleteFolder Button
+        private void Button_DeleteFolders_Click(object sender, RoutedEventArgs e)
+        {
+            btnCleanFolders.Content = "Nettoyage en cours ...";
+            imgCleanFolders.Visibility = Visibility.Hidden;
+            titre.Content = "Nettoyage Effectué";
+            espace.Content = "0 Mb";
+            //Task.Delay(2000).ContinueWith(t => imgCleanFolders.Visibility = Visibility.Visible);
+
+            try
+            {
+                var nbFiles = DeleteTempData(tempWin); //Delete Files and Folders and get the counter of this deleted items.
+                label1.Content = "Fichier Supprimé : ";
+                espace.Content = nbFiles + " fichiers";
+            }   //  abstract pour définir un moule (classe qui ne s'instancie pas, utilisé pour l'hétitage)
+                //  Atribut statique qui est stocké dans la classe et non dans les instances. et methoque statique, pas besoin d'instancier pour l'appeller exemple (classe Console et méthode Rightline)
+                //  Constructeur = methode appellée automatiquement lors de l'instanciation d'un objet
+                //  propriété raccourcis de l'attribut avec le getter et le setter
+            catch (Exception error)
+            {
+
+                Console.WriteLine(error + " erreur ");
+            }
         }
         //---------------------------------------------------
+        //                      Functions                   |
+        //---------------------------------------------------
 
-        //  Function to analyze Folders Weight and date for last Analyze
+        //  -- Function AnalyzeFolders -- analyze Folders Weight and set a date for the last Analyze
         public void AnalyzeFolders()
         {
             Console.WriteLine("Début de l'analyse ...");
@@ -152,6 +162,49 @@ namespace AkiClean
             
             espace.Content = totalSize + " Mb";
             date.Content = DateTime.Now;
+        }
+
+        // -- Function DirectorySize - get the weight of a folder --
+        public long DirectorySize(DirectoryInfo directory)
+        {
+            return directory.GetFiles().Sum(files => files.Length) + directory.GetDirectories().Sum(dir => DirectorySize(dir));
+        }
+
+        //  -- Function DeleteTempData delete every files and directory in a choosen Directory --
+        public static int DeleteTempData(DirectoryInfo directory)
+        {
+            int countFiles = 0;
+            //  Loop to remove each files in the directory
+            foreach (FileInfo file in directory.GetFiles())
+            {
+                try
+                {
+                    file.Delete();
+                    Console.WriteLine(file.FullName);
+                    countFiles++; //gérer le compteur avec un passage par référence ref countFiles
+                }
+                catch (Exception error)
+                {
+                    Console.WriteLine("Error : " + error);
+                    continue;
+                }
+            }
+            //  Loop to remove each directory in the directory
+            foreach (DirectoryInfo dir in directory.GetDirectories())
+            {
+                try
+                {
+                    dir.Delete(true); //true its recursive parameter(delete everything inside the folder)
+                    Console.WriteLine(dir.FullName);
+                    countFiles++;
+                }
+                catch (Exception error)
+                {
+                    Console.WriteLine("Error : " + error);
+                    continue;
+                }
+            }
+            return countFiles;
         }
     }
 }
