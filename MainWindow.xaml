@@ -126,8 +126,8 @@
         <Label x:Name="copyright" Content="2022 - Akinelo" HorizontalAlignment="Center" Margin="0,576,0,0" VerticalAlignment="Top" Foreground="#FFF7F7F7" FontFamily="Matura MT Script Capitals" FontSize="20" FontWeight="Normal" Height="108" Width="1000" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         
         <!-- Message à l'utilisateur (update ou autre)-->
-        <Rectangle HorizontalAlignment="Center" Height="57" Stroke="Black" VerticalAlignment="Top" Width="1000" Fill="#FFDD2C0E" StrokeThickness="0" Margin="0,617,0,0" Visibility="Hidden"/>
-        <Label x:Name="message" Content="Copyright 2022 - Akinelo" HorizontalAlignment="Center" Margin="0,617,0,0" VerticalAlignment="Top" Foreground="#FFF7F7F7" FontFamily="Matura MT Script Capitals" FontSize="20" FontWeight="Normal" Height="67" Width="1000" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="Hidden"/>
+        <Rectangle x:Name="rectNews" HorizontalAlignment="Center" Height="57" Stroke="Black" VerticalAlignment="Top" Width="1000" Fill="#FFDD2C0E" StrokeThickness="0" Margin="0,617,0,0" Visibility="Hidden"/>
+        <Label x:Name="news" Content="Copyright 2022 - Akinelo" HorizontalAlignment="Center" Margin="0,617,0,0" VerticalAlignment="Top" Foreground="#FFF7F7F7" FontFamily="Matura MT Script Capitals" FontSize="20" FontWeight="Normal" Height="67" Width="1000" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="Hidden"/>
 
         <!--Images-->
         <Canvas>

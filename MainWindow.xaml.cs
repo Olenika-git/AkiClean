@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -46,6 +47,11 @@ namespace AkiClean
         public DirectoryInfo tempSafariHistory;
         public DirectoryInfo tempSafariCache;
         public DirectoryInfo tempSafariCookies;
+        //---------------------------------------------------
+        //         Declaration LocalVersion Variable        |
+        //---------------------------------------------------
+        string LocalVersion = "1.0.0";
+
 
         public MainWindow()
         {
@@ -69,6 +75,12 @@ namespace AkiClean
             tempSafariHistory = new DirectoryInfo(@"C:\Users\" + username + @"\AppData\Roaming\Apple Computer\Safari\");
             tempSafariCache = new DirectoryInfo(@"C:\Users\" + username + @"\AppData\Local\Apple Computer\Safari\");
             tempSafariCookies = new DirectoryInfo(@"C:\Users\" + username + @"\AppData\Roaming\Apple Computer\Safari\Cookies\");
+
+            //---------------------------------------------------
+            //               News and Update Sections           |
+            //---------------------------------------------------
+            CheckNews();
+            CheckUpdate();
         }
 
         
@@ -80,8 +92,7 @@ namespace AkiClean
         //  Update Button
         private void Button_Update_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Logiciel à jour !", "Mise à jour . . .",MessageBoxButton.OK,MessageBoxImage.Information);
-
+            CheckVersion();
         }
 
         //  History Button
@@ -205,6 +216,58 @@ namespace AkiClean
                 }
             }
             return countFiles;
+        }
+
+        //  -- Function CheckNews get news on a file stored on a Server --
+        public void CheckNews()
+        {
+            string link = "http://127.0.0.1/AkiClean/News.txt";
+            using (WebClient client = new WebClient())
+            {
+                string News = client.DownloadString(link);
+
+                if(News != string.Empty)
+                {
+                    news.Content = News;
+                    news.Visibility = Visibility.Visible;
+                    rectNews.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    news.Visibility = Visibility.Hidden;
+                    rectNews.Visibility = Visibility.Hidden;
+                }
+            }
+        }
+
+        //  -- Function CheckUpdate get software update stored on a Server --
+        public void CheckUpdate()
+        {
+            string link = "http://127.0.0.1/AkiClean/Update.txt";
+            using (WebClient client = new WebClient())
+            {
+
+            }
+        }
+
+        //  -- Function CheckVersion get software version stored on a Server --
+        public void CheckVersion()
+        {
+            string link = "http://127.0.0.1/AkiClean/Version.txt";
+            using (WebClient client = new WebClient())
+            {
+                string DistantVersion = client.DownloadString(link);
+
+                if(LocalVersion != DistantVersion)
+                {
+                    MessageBox.Show("Nouvelle Version Disponible : "+DistantVersion+" !", "Mise à jour . . .", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                }
+                else
+                {
+                    MessageBox.Show("Logiciel à Jour, Version : "+LocalVersion, "Mise à jour . . .", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
         }
     }
 }
