@@ -130,11 +130,10 @@ namespace AkiClean
         //  DeleteFolder Button
         private void Button_DeleteFolders_Click(object sender, RoutedEventArgs e)
         {
-            btnCleanFolders.Content = "Nettoyage en cours ...";
             imgCleanFolders.Visibility = Visibility.Hidden;
             titre.Content = "Nettoyage Effectué";
             espace.Content = "0 Mb";
-            //Task.Delay(2000).ContinueWith(t => imgCleanFolders.Visibility = Visibility.Visible);
+            Task.Delay(2000).ContinueWith(t => MessageBox.Show("Analyse Terminée avec succès"));
 
             try
             {
@@ -246,7 +245,10 @@ namespace AkiClean
             string link = "http://127.0.0.1/AkiClean/Update.txt";
             using (WebClient client = new WebClient())
             {
-
+                Process.Start(new ProcessStartInfo("www.google.com")
+                {
+                    UseShellExecute = true
+                });
             }
         }
 
