@@ -5,6 +5,9 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Icons\ac.ico</ApplicationIcon>
+    <Authors>Akinelo</Authors>
+    <Company />
   </PropertyGroup>
 
   <ItemGroup>
