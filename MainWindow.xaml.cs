@@ -52,7 +52,9 @@ namespace AkiClean
         //---------------------------------------------------
         string LocalVersion = "1.0.0";
 
-
+        /// <summary>
+        /// MainWindow Constructor
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -83,27 +85,39 @@ namespace AkiClean
             CheckUpdate();
         }
 
-        
+
 
         //---------------------------------------------------
         //                   Event on Buttons               |
         //---------------------------------------------------
 
-        //  Update Button
+        /// <summary>
+        /// Update Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Update_Click(object sender, RoutedEventArgs e)
         {
             CheckVersion();
         }
 
-        //  History Button
+        /// <summary>
+        /// History Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_History_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Historique à crée !", "Historique", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
 
-        
-        //  DeleteWebFiles Button
+
+        /// <summary>
+        /// DeleteWebFiles Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_DeleteWeb_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -120,14 +134,22 @@ namespace AkiClean
             }
         }
 
-        //  Analyze Button
+        /// <summary>
+        /// Analyze Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Analyze_Click(object sender, RoutedEventArgs e)
         {
             AnalyzeFolders();
             titre.Content = "Analyse Effectué";
         }
 
-        //  DeleteFolder Button
+        /// <summary>
+        /// DeleteFolder Button - Used to delete temp files
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_DeleteFolders_Click(object sender, RoutedEventArgs e)
         {
             imgCleanFolders.Visibility = Visibility.Hidden;
@@ -140,21 +162,21 @@ namespace AkiClean
                 var nbFiles = DeleteTempData(tempWin); //Delete Files and Folders and get the counter of this deleted items.
                 label1.Content = "Fichier Supprimé : ";
                 espace.Content = nbFiles + " fichiers";
-            }   //  abstract pour définir un moule (classe qui ne s'instancie pas, utilisé pour l'hétitage)
-                //  Atribut statique qui est stocké dans la classe et non dans les instances. et methoque statique, pas besoin d'instancier pour l'appeller exemple (classe Console et méthode Rightline)
-                //  Constructeur = methode appellée automatiquement lors de l'instanciation d'un objet
-                //  propriété raccourcis de l'attribut avec le getter et le setter
+            }   
             catch (Exception error)
             {
 
                 Console.WriteLine(error + " erreur ");
             }
         }
+
         //---------------------------------------------------
         //                      Functions                   |
         //---------------------------------------------------
 
-        //  -- Function AnalyzeFolders -- analyze Folders Weight and set a date for the last Analyze
+        /// <summary>
+        /// Function AnalyzeFolders analyze Folders Weight and save/set date of the last Analyze
+        /// </summary>
         public void AnalyzeFolders()
         {
             Console.WriteLine("Début de l'analyse ...");
@@ -172,15 +194,24 @@ namespace AkiClean
             
             espace.Content = totalSize + " Mb";
             date.Content = DateTime.Now;
+            SaveDate();
         }
 
-        // -- Function DirectorySize - get the weight of a folder --
+        /// <summary>
+        /// Function DirectorySize - get the weight of a folder
+        /// </summary>
+        /// <param name="directory">The Directory where we get files and directory weight</param>
+        /// <returns>Return the total Weight</returns>
         public long DirectorySize(DirectoryInfo directory)
         {
             return directory.GetFiles().Sum(files => files.Length) + directory.GetDirectories().Sum(dir => DirectorySize(dir));
         }
 
-        //  -- Function DeleteTempData delete every files and directory in a choosen Directory --
+        /// <summary>
+        /// Function DeleteTempData delete every files and directory in a choosen Directory
+        /// </summary>
+        /// <param name="directory">The Directory where we delete files and directory</param>
+        /// <returns>Numbers of deleted files</returns>
         public static int DeleteTempData(DirectoryInfo directory)
         {
             int countFiles = 0;
@@ -217,7 +248,9 @@ namespace AkiClean
             return countFiles;
         }
 
-        //  -- Function CheckNews get news on a file stored on a Server --
+        /// <summary>
+        /// Function CheckNews get news on a file stored on a Server
+        /// </summary>
         public void CheckNews()
         {
             string link = "http://127.0.0.1/AkiClean/News.txt";
@@ -239,10 +272,13 @@ namespace AkiClean
             }
         }
 
-        //  -- Function CheckUpdate get software update stored on a Server --
+        /// <summary>
+        /// Function CheckUpdate get software update stored on a Server
+        /// </summary>
         public void CheckUpdate()
         {
             string link = "http://127.0.0.1/AkiClean/Update.txt";
+
             using (WebClient client = new WebClient())
             {
                 Process.Start(new ProcessStartInfo("www.google.com")
@@ -252,7 +288,9 @@ namespace AkiClean
             }
         }
 
-        //  -- Function CheckVersion get software version stored on a Server --
+        /// <summary>
+        /// Function CheckVersion get software version stored on a Server
+        /// </summary>
         public void CheckVersion()
         {
             string link = "http://127.0.0.1/AkiClean/Version.txt";
@@ -270,6 +308,15 @@ namespace AkiClean
                     MessageBox.Show("Logiciel à Jour, Version : "+LocalVersion, "Mise à jour . . .", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
+        }
+
+        /// <summary>
+        /// Function SaveDate save the date of the last analyze
+        /// </summary>
+        public void SaveDate()
+        {
+            string date = DateTime.Now.ToString();
+            File.WriteAllText("lastAnalyze.txt", date);
         }
     }
 }
