@@ -133,10 +133,13 @@ namespace AkiClean
         {
             try
             {
-                Process.Start(new ProcessStartInfo("www.google.com")
-                {
-                    UseShellExecute = true
-                });
+                var nbFiles = DeleteTempData(tempGoogle) + DeleteTempData(tempFirefox); //Delete Files and Folders and get the counter of this deleted items.
+                nbFiles += DeleteTempData(tempEdge) + DeleteTempData(tempIE1) + DeleteTempData(tempIE2);
+                titre.Content = "Nettoyage Effectué";
+                espace.Content = "0 Mb";
+                label1.Content = "Fichier Supprimé : ";
+                espace.Content = nbFiles + " fichiers";
+                Task.Delay(2000).ContinueWith(message => MessageBox.Show("Nettoyage Terminée"));
             }
             catch (Exception error)
             {
@@ -163,16 +166,16 @@ namespace AkiClean
         /// <param name="e"></param>
         private void Button_DeleteFolders_Click(object sender, RoutedEventArgs e)
         {
-            imgCleanFolders.Visibility = Visibility.Hidden;
-            titre.Content = "Nettoyage Effectué";
-            espace.Content = "0 Mb";
-            Task.Delay(2000).ContinueWith(t => MessageBox.Show("Analyse Terminée avec succès"));
-
             try
             {
                 var nbFiles = DeleteTempData(tempWin); //Delete Files and Folders and get the counter of this deleted items.
+                nbFiles += DeleteTempData(tempApp);
+                nbFiles += DeleteTempData(tempUsrApp);
+                titre.Content = "Nettoyage Effectué";
+                espace.Content = "0 Mb";
                 label1.Content = "Fichier Supprimé : ";
                 espace.Content = nbFiles + " fichiers";
+                Task.Delay(2000).ContinueWith(message => MessageBox.Show("Nettoyage Terminée"));
             }   
             catch (Exception error)
             {
@@ -190,12 +193,12 @@ namespace AkiClean
         /// </summary>
         public void AnalyzeFolders()
         {
-            Console.WriteLine("Début de l'analyse ...");
             long totalSize = 0;
 
             try
             {
                 totalSize = (DirectorySize(tempWin) / 1000000) + (DirectorySize(tempApp) / 1000000) + (DirectorySize(tempUsrApp) / 1000000);
+                totalSize += (DirectorySize(tempFirefox) / 1000000) + (DirectorySize(tempGoogle) / 1000000) + (DirectorySize(tempEdge) / 1000000) + (DirectorySize(tempIE1) / 1000000) + (DirectorySize(tempIE2) / 1000000);
             }
             catch (Exception error)
             {
@@ -232,7 +235,6 @@ namespace AkiClean
                 try
                 {
                     file.Delete();
-                    Console.WriteLine(file.FullName);
                     countFiles++; //gérer le compteur avec un passage par référence ref countFiles
                 }
                 catch (Exception error)
@@ -264,31 +266,31 @@ namespace AkiClean
         /// </summary>
         public void CheckNews()
         {
-            string link = "http://127.0.0.1/AkiClean/News.txt";
-            using (WebClient client = new WebClient())
-            {
-                try
-                {
-                    string News = client.DownloadString(link);
+            //string link = "http://127.0.0.1/AkiClean/News.txt";
+            //using (WebClient client = new WebClient())
+            //{
+            //    try
+            //    {
+            //        string News = client.DownloadString(link);
 
-                    if (News != string.Empty)
-                    {
-                        news.Content = News;
-                        news.Visibility = Visibility.Visible;
-                        rectNews.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        news.Visibility = Visibility.Hidden;
-                        rectNews.Visibility = Visibility.Hidden;
-                    }
-                }
-                catch (Exception error)
-                {
+            //        if (News != string.Empty)
+            //        {
+            //            news.Content = News;
+            //            news.Visibility = Visibility.Visible;
+            //            rectNews.Visibility = Visibility.Visible;             //Untill we got a server no spam
+            //        }
+            //        else
+            //        {
+            //            news.Visibility = Visibility.Hidden;
+            //            rectNews.Visibility = Visibility.Hidden;
+            //        }
+            //    }
+            //    catch (Exception error)
+            //    {
 
-                    Console.WriteLine("CheckNews : " + error);
-                }
-            }
+            //        Console.WriteLine("CheckNews : " + error);
+            //    }
+            //}
         }
 
         /// <summary>
@@ -296,23 +298,23 @@ namespace AkiClean
         /// </summary>
         public void CheckUpdate()
         {
-            try
-            {
-                string link = "http://127.0.0.1/AkiClean/Update.txt";
+            //try
+            //{
+            //    string link = "http://127.0.0.1/AkiClean/Update.txt";
 
-                using (WebClient client = new WebClient())
-                {
-                    Process.Start(new ProcessStartInfo("www.google.com")
-                    {
-                        UseShellExecute = true
-                    });
-                }
-            }
-            catch (Exception error )
-            {
+            //    using (WebClient client = new WebClient())
+            //    {
+            //        Process.Start(new ProcessStartInfo("www.google.com")              //Untill we got a server no spam
+            //        {
+            //            UseShellExecute = true
+            //        });
+            //    }
+            //}
+            //catch (Exception error )
+            //{
 
-                Console.WriteLine("CheckUpdate : " + error);
-            }
+            //    Console.WriteLine("CheckUpdate : " + error);
+            //}
         }
 
         /// <summary>
@@ -320,29 +322,29 @@ namespace AkiClean
         /// </summary>
         public void CheckVersion()
         {
-            try
-            {
-                string link = "http://127.0.0.1/AkiClean/Version.txt";
-                using (WebClient client = new WebClient())
-                {
-                    string DistantVersion = client.DownloadString(link);
+            //try
+            //{
+            //    string link = "http://127.0.0.1/AkiClean/Version.txt";
+            //    using (WebClient client = new WebClient())
+            //    {
+            //        string DistantVersion = client.DownloadString(link);
 
-                    if (LocalVersion != DistantVersion)
-                    {
-                        MessageBox.Show("Nouvelle Version Disponible : " + DistantVersion + " !", "Mise à jour . . .", MessageBoxButton.OK, MessageBoxImage.Information);
+            //        if (LocalVersion != DistantVersion)
+            //        {
+            //            MessageBox.Show("Nouvelle Version Disponible : " + DistantVersion + " !", "Mise à jour . . .", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                    }
-                    else
-                    {
-                        MessageBox.Show("Logiciel à Jour, Version : " + LocalVersion, "Mise à jour . . .", MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
-                }
-            }
-            catch (Exception error)
-            {
+            //        }
+            //        else              //Untill we got a server no spam
+            //        {
+            //            MessageBox.Show("Logiciel à Jour, Version : " + LocalVersion, "Mise à jour . . .", MessageBoxButton.OK, MessageBoxImage.Information);
+            //        }
+            //    }
+            //}
+            //catch (Exception error)
+            //{
 
-                Console.WriteLine("CheckVersion : " +error);
-            }
+            //    Console.WriteLine("CheckVersion : " +error);
+            //}
         }
 
         /// <summary>
