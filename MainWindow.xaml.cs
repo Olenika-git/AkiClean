@@ -84,10 +84,16 @@ namespace AkiClean
             //---------------------------------------------------
             CheckNews();
             CheckUpdate();
+
             //---------------------------------------------------
             //               Folders Sections                   |
             //---------------------------------------------------
             CreateDirectory();
+
+            //---------------------------------------------------
+            //               Date Sections                   |
+            //---------------------------------------------------
+            GetDate();
         }
 
 
@@ -347,7 +353,7 @@ namespace AkiClean
             try
             {
                 string date = DateTime.Now.ToString();
-                File.WriteAllText("../Logs/lastAnalyze.txt", date);
+                File.WriteAllText(@"C:\\Users\\" + username + @"\\AppData\\Local\\AkiCleaner\\lastAnalyze.txt", date);
             }
             catch (Exception error)
             {
@@ -361,6 +367,25 @@ namespace AkiClean
         /// </summary>
         public void GetDate()
         {
+            string path = @"C:\\Users\\" + username + @"\\AppData\\Local\\AkiCleaner\\lastAnalyze.txt";
+
+            using (WebClient client = new WebClient())
+            {
+                try
+                {
+                    string Date = client.DownloadString(path);
+
+                    if (Date != string.Empty)
+                    {
+                        date.Content = Date;
+                    }
+                }
+                catch (Exception error)
+                {
+
+                    Console.WriteLine("CheckNews : " + error);
+                }
+            }
 
         }
 
