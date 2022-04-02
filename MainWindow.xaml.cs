@@ -66,6 +66,7 @@ namespace AkiClean
             tempApp = new DirectoryInfo(System.IO.Path.GetTempPath());
             tempUsrApp = new DirectoryInfo(@"C:\Users\"+username+@"\AppData\Local\Temp");
 
+
             //---------------------------------------------------
             //               Internet Folders Property          |
             //---------------------------------------------------
@@ -83,6 +84,10 @@ namespace AkiClean
             //---------------------------------------------------
             CheckNews();
             CheckUpdate();
+            //---------------------------------------------------
+            //               Folders Sections                   |
+            //---------------------------------------------------
+            CreateDirectory();
         }
 
 
@@ -256,18 +261,26 @@ namespace AkiClean
             string link = "http://127.0.0.1/AkiClean/News.txt";
             using (WebClient client = new WebClient())
             {
-                string News = client.DownloadString(link);
+                try
+                {
+                    string News = client.DownloadString(link);
 
-                if(News != string.Empty)
-                {
-                    news.Content = News;
-                    news.Visibility = Visibility.Visible;
-                    rectNews.Visibility = Visibility.Visible;
+                    if (News != string.Empty)
+                    {
+                        news.Content = News;
+                        news.Visibility = Visibility.Visible;
+                        rectNews.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        news.Visibility = Visibility.Hidden;
+                        rectNews.Visibility = Visibility.Hidden;
+                    }
                 }
-                else
+                catch (Exception error)
                 {
-                    news.Visibility = Visibility.Hidden;
-                    rectNews.Visibility = Visibility.Hidden;
+
+                    Console.WriteLine("CheckNews : " + error);
                 }
             }
         }
@@ -277,14 +290,22 @@ namespace AkiClean
         /// </summary>
         public void CheckUpdate()
         {
-            string link = "http://127.0.0.1/AkiClean/Update.txt";
-
-            using (WebClient client = new WebClient())
+            try
             {
-                Process.Start(new ProcessStartInfo("www.google.com")
+                string link = "http://127.0.0.1/AkiClean/Update.txt";
+
+                using (WebClient client = new WebClient())
                 {
-                    UseShellExecute = true
-                });
+                    Process.Start(new ProcessStartInfo("www.google.com")
+                    {
+                        UseShellExecute = true
+                    });
+                }
+            }
+            catch (Exception error )
+            {
+
+                Console.WriteLine("CheckUpdate : " + error);
             }
         }
 
@@ -293,20 +314,28 @@ namespace AkiClean
         /// </summary>
         public void CheckVersion()
         {
-            string link = "http://127.0.0.1/AkiClean/Version.txt";
-            using (WebClient client = new WebClient())
+            try
             {
-                string DistantVersion = client.DownloadString(link);
-
-                if(LocalVersion != DistantVersion)
+                string link = "http://127.0.0.1/AkiClean/Version.txt";
+                using (WebClient client = new WebClient())
                 {
-                    MessageBox.Show("Nouvelle Version Disponible : "+DistantVersion+" !", "Mise à jour . . .", MessageBoxButton.OK, MessageBoxImage.Information);
+                    string DistantVersion = client.DownloadString(link);
 
+                    if (LocalVersion != DistantVersion)
+                    {
+                        MessageBox.Show("Nouvelle Version Disponible : " + DistantVersion + " !", "Mise à jour . . .", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Logiciel à Jour, Version : " + LocalVersion, "Mise à jour . . .", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Logiciel à Jour, Version : "+LocalVersion, "Mise à jour . . .", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
+            }
+            catch (Exception error)
+            {
+
+                Console.WriteLine("CheckVersion : " +error);
             }
         }
 
@@ -315,8 +344,56 @@ namespace AkiClean
         /// </summary>
         public void SaveDate()
         {
-            string date = DateTime.Now.ToString();
-            File.WriteAllText("lastAnalyze.txt", date);
+            try
+            {
+                string date = DateTime.Now.ToString();
+                File.WriteAllText("../Logs/lastAnalyze.txt", date);
+            }
+            catch (Exception error)
+            {
+
+                Console.WriteLine("SaveDate : " +error);
+            }
+        }
+
+        /// <summary>
+        /// Function GetDate - return the date of the last analyze
+        /// </summary>
+        public void GetDate()
+        {
+
+        }
+
+        /// <summary>
+        /// Function CreateDirectory - create a directory to save data
+        /// </summary>
+        public void CreateDirectory()
+        {
+            try
+            {
+                bool check = CheckDirectory();
+
+                if (!check)
+                {
+                    Directory.CreateDirectory(@"C:\\Users\\" + username + @"\\AppData\\Local\\AkiCleaner");
+                }
+            }
+            catch (Exception error)
+            {
+
+                Console.WriteLine("CreateDirectory : " + error);
+            }   
+        }
+
+        /// <summary>
+        /// Function CheckDirectory - check if the folder already exist
+        /// </summary>
+        /// <returns>return true if the folder exist</returns>
+        public bool CheckDirectory()
+        {
+            bool check = Directory.Exists(@"C:\\Users\\" + username + @"\\AppData\\Local\\AkiCleaner");
+            
+            return check;
         }
     }
 }
