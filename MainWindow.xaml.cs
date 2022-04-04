@@ -400,6 +400,7 @@ namespace AkiClean
             {
                 bool check = CheckDirectory();
 
+                // if CheckDirectory is not true(don't exist) we create the directory
                 if (!check)
                 {
                     Directory.CreateDirectory(@"C:\\Users\\" + username + @"\\AppData\\Local\\AkiCleaner");
