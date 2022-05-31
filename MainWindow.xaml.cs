@@ -348,7 +348,7 @@ namespace AkiClean
         }
 
         /// <summary>
-        /// Function SaveDate save the date of the last analyze
+        /// Function SaveDate - save the date of the last analyze
         /// </summary>
         public void SaveDate()
         {
@@ -398,10 +398,9 @@ namespace AkiClean
         {
             try
             {
-                bool check = CheckDirectory();
+                //bool directoryExist = CheckDirectory(); A tester avant de supprimer Factoring
 
-                // if CheckDirectory is not true(don't exist) we create the directory
-                if (!check)
+                if (!CheckDirectory())
                 {
                     Directory.CreateDirectory(@"C:\\Users\\" + username + @"\\AppData\\Local\\AkiCleaner");
                 }
@@ -419,9 +418,9 @@ namespace AkiClean
         /// <returns>return true if the folder exist</returns>
         public bool CheckDirectory()
         {
-            bool check = Directory.Exists(@"C:\\Users\\" + username + @"\\AppData\\Local\\AkiCleaner");
-            
-            return check;
+            //bool check = Directory.Exists(@"C:\\Users\\" + username + @"\\AppData\\Local\\AkiCleaner"); A tester avant de supprimer Factoring
+
+            return Directory.Exists(@"C:\\Users\\" + username + @"\\AppData\\Local\\AkiCleaner");
         }
     }
 }
