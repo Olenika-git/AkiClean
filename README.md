@@ -1,3 +1,3 @@
 # AkiClean
 
-This is a Cleaner made in C#, he clean temporary files, internet files(Cookies,History).
+This is a Cleaner that i created using C#, he clean windows temporary files, and internet files(Cookies,History) for multiple web browser.
